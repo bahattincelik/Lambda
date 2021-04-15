@@ -14,23 +14,26 @@ public class Stream03Integer {
         liste.add(9);
         liste.add(2);
         liste.add(4);
-        liste.add(-1);
         liste.add(12);
+        liste.add(-1);
         liste.add(15);
         liste.add(500);
         liste.add(-15);
 
-        System.out.println("En Buyuk Deger : " +buyukBul(liste));
-        System.out.println("En Buyuk Deger : " +buyukBul1(liste));
-        System.out.println("En Buyuk Deger : " +buyukBul2(liste));
-        System.out.println("En Kucuk Deger : " +kucukBul(liste));
-        System.out.println("Carpim Sonuc : " +carpimBul(liste));
-        System.out.println("9 Sayisi : " +dokuzSay(liste));
-        System.out.println("Negatif Liste : " +negatifSayiListesi(liste));
+        System.out.println("En BÜYÜK DEĞER:" + buyukBul(liste));
+        System.out.println("En BÜYÜK DEĞER:" + buyukBul1(liste));
+        System.out.println("En KÜÇÜK DEĞER:" + kucukBul(liste));
+        System.out.println("ÇARPIM DEĞERİ:" + carpimBul(liste));
+        System.out.println("9 Sayısı :" + dokuzSay(liste));
+        negatifSayilariYazdır(liste);
+        List<Integer> negatifler = negatifSayiListesi(liste);
+        System.out.println("\nnegatif liste:" + negatifler);
     }
+
     public static int buyukBul(List<Integer> liste){
-        return liste.stream().reduce(0,(x,y)-> x>y?x:y);
+        return liste.stream().reduce(0, (x,y)-> x >y ? x:y);
     }
+
     public static int buyukBul1(List<Integer> liste){
         return liste.stream().reduce(0,Math::max);
     }
@@ -39,17 +42,31 @@ public class Stream03Integer {
         return liste.stream().sorted().reduce(0,(x,y)->y);
     }
     public static int kucukBul(List<Integer> liste){
-        return liste.stream().reduce(0,(x,y)-> x<y?x:y);
+        return liste.stream().reduce(0,(x,y)-> x < y ? x:y);
     }
     public static int carpimBul(List<Integer> liste){
         return liste.stream().reduce(1,(x,y)-> x*y);
     }
-    public static int dokuzSay(List<Integer> liste){
+
+    // Liste içerisinde kaç tane 9 sayısı bulunmaktadır.
+    // Bunun bulan bir metot yazalım
+    public static int  dokuzSay(List <Integer> liste){
         return (int) liste.stream().filter(x -> x==9).count();
     }
 
-    //negatif sayilari ayri bir liste olarak donduren method' u yazalim.
+    // Listedeki negatif sayıları yazdıran metodu yazalım.
+    public static void negatifSayilariYazdır(List<Integer> liste){
+        liste.stream().filter(x-> x<0).forEach(System.out::print);
+    }
+
+    // Listedeki negatif sayıları ayrı bir liste olarak döndüren metodu yazalım.
     public static List<Integer> negatifSayiListesi(List<Integer> liste){
         return liste.stream().filter(x-> x<0).collect(Collectors.toList());
+    }
+
+    public static List<Integer> tekKareSiraliListele(List<Integer> liste){
+
+        return liste.stream().distinct().filter(Stream01Integer::tekMi)
+                .
     }
 }
