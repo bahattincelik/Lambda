@@ -1,6 +1,7 @@
 package streamOrnekler;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,6 +14,7 @@ public class Stream03Integer {
         liste.add(4);
         liste.add(9);
         liste.add(2);
+        liste.add(-2);
         liste.add(4);
         liste.add(12);
         liste.add(-1);
@@ -28,6 +30,7 @@ public class Stream03Integer {
         negatifSayilariYazdır(liste);
         List<Integer> negatifler = negatifSayiListesi(liste);
         System.out.println("\nnegatif liste:" + negatifler);
+        System.out.println("\nTek Sayıların Sıralı Karesi:" +tekKareSiraliListele(liste));
     }
 
     public static int buyukBul(List<Integer> liste){
@@ -64,9 +67,17 @@ public class Stream03Integer {
         return liste.stream().filter(x-> x<0).collect(Collectors.toList());
     }
 
-    public static List<Integer> tekKareSiraliListele(List<Integer> liste){
-
-        return liste.stream().distinct().filter(Stream01Integer::tekMi)
-                .
+    // Listedeki tek elemanların karelerini sıralı olarak ve tekrarsız
+    // bir şekilde listeye kaydeden metodu yazınız.
+    public static List<Integer> tekKareSiraliListele(List <Integer> liste){
+        return liste.
+                stream().
+                distinct().
+                filter(Methodlar::tekMi).
+                map(x -> (int) Math.pow(x, 2)).
+                distinct().
+                sorted().         // sorted(Comparator.reverseOrder()).
+                collect(Collectors.toList());
     }
+
 }
